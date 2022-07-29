@@ -178,6 +178,10 @@ class PaymentCardFormState extends State<PaymentCardForm> {
               return ReactiveTextField(
                 formControlName: PaymentCardForm.cardNumberKey,
                 inputFormatters: [_cardNumberMask],
+                style: Theme.of(context).textTheme.bodyText2!
+                  ..copyWith(
+                    color: Colors.black,
+                  ),
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
@@ -193,8 +197,12 @@ class PaymentCardFormState extends State<PaymentCardForm> {
           ReactiveTextField(
             formControlName: PaymentCardForm.holderNameKey,
             textInputAction: TextInputAction.next,
+            style: Theme.of(context).textTheme.bodyText2!
+              ..copyWith(
+                color: Colors.black,
+              ),
             decoration: const InputDecoration(
-              labelText: 'Nome completo',
+              labelText: 'Nome como aparece no cartão',
             ),
             validationMessages: (control) => {
               ValidationMessage.required: 'O nome é obrigatório',
@@ -204,9 +212,13 @@ class PaymentCardFormState extends State<PaymentCardForm> {
             formControlName: PaymentCardForm.documentNumberKey,
             inputFormatters: [_documentMaskFormatter],
             textInputAction: TextInputAction.next,
+            style: Theme.of(context).textTheme.bodyText2!
+              ..copyWith(
+                color: Colors.black,
+              ),
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
-              labelText: 'CPF',
+              labelText: 'CPF do titular',
             ),
             validationMessages: (control) => {
               ValidationMessage.required: 'O CPF é obrigatório',
@@ -220,6 +232,10 @@ class PaymentCardFormState extends State<PaymentCardForm> {
                 child: ReactiveTextField(
                   formControlName: PaymentCardForm.expDateKey,
                   textInputAction: TextInputAction.next,
+                  style: Theme.of(context).textTheme.bodyText2!
+                    ..copyWith(
+                      color: Colors.black,
+                    ),
                   inputFormatters: [
                     MaskTextInputFormatter(
                       mask: '##/##',
@@ -241,6 +257,10 @@ class PaymentCardFormState extends State<PaymentCardForm> {
               Flexible(
                 child: ReactiveTextField(
                   formControlName: PaymentCardForm.cvvKey,
+                  style: Theme.of(context).textTheme.bodyText2!
+                    ..copyWith(
+                      color: Colors.black,
+                    ),
                   maxLength: 4,
                   inputFormatters: [
                     MaskTextInputFormatter(
@@ -253,7 +273,7 @@ class PaymentCardFormState extends State<PaymentCardForm> {
                     labelText: 'CVV',
                     counterText: '',
                     suffixIcon: IconButton(
-                      icon: const Icon(Icons.info),
+                      icon: const Icon(Icons.help),
                       onPressed: () => showModalBottomSheet(
                         context: context,
                         isDismissible: true,
@@ -300,7 +320,9 @@ class PaymentCardFormState extends State<PaymentCardForm> {
             controlAffinity: ListTileControlAffinity.leading,
             title: RichText(
               text: TextSpan(
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.caption!.copyWith(
+                      color: Colors.black,
+                    ),
                 children: [
                   const TextSpan(text: 'Li e concordo com os '),
                   if (widget.termsOfUseUri != null)
