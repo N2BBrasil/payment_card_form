@@ -48,7 +48,11 @@ class PaymentCardFormState extends State<PaymentCardForm> {
         validators: [Validators.creditCard],
       ),
       PaymentCardForm.holderNameKey: FormControl<String>(
-        validators: [Validators.required],
+        validators: [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(26),
+        ],
       ),
       PaymentCardForm.documentNumberKey: FormControl<String>(
         validators: [
@@ -206,6 +210,8 @@ class PaymentCardFormState extends State<PaymentCardForm> {
             ),
             validationMessages: (control) => {
               ValidationMessage.required: 'O nome é obrigatório',
+              ValidationMessage.minLength: 'O nome inserido é muito curto',
+              ValidationMessage.maxLength: 'O nome inserido é muito longo',
             },
           ),
           ReactiveTextField(
@@ -246,10 +252,10 @@ class PaymentCardFormState extends State<PaymentCardForm> {
                     labelText: 'Validade',
                   ),
                   validationMessages: (control) => {
-                    ValidationMessage.required: 'A validade é obrigatória',
+                    ValidationMessage.required: 'Obrigatório',
                     ValidationMessage.minLength:
                         'Preencha a data correntamente',
-                    'invalid': 'A validade é inválida',
+                    'invalid': 'Inválida',
                   },
                 ),
               ),
@@ -287,13 +293,41 @@ class PaymentCardFormState extends State<PaymentCardForm> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(
-                                  'Código de segurança (CVV, CVC ou CVE)',
-                                  style: Theme.of(context).textTheme.headline5,
-                                ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  'O código de segurança é um número de 3 ou 4 dígitos. Na maioria dos cartões, ele é impresso no verso.',
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Código de segurança (CVV, CVC ou CVE)',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5!
+                                                .copyWith(
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                          const SizedBox(height: 16),
+                                          Text(
+                                            'O código de segurança é um número de 3 ou 4 dígitos. Na maioria dos cartões, ele é impresso no verso.',
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 56),
+                                    Image.asset(
+                                      'packages/payment_card_form/assets/images/nutritionist.png',
+                                      height: 90,
+                                      fit: BoxFit.cover,
+                                    )
+                                  ],
                                 ),
                                 const SizedBox(height: 36),
                                 TextButton(
@@ -308,8 +342,8 @@ class PaymentCardFormState extends State<PaymentCardForm> {
                     ),
                   ),
                   validationMessages: (control) => {
-                    ValidationMessage.required: 'O CVV é obrigatório',
-                    ValidationMessage.minLength: 'O CVV é inválido',
+                    ValidationMessage.required: 'Obrigatório',
+                    ValidationMessage.minLength: 'Inválido',
                   },
                 ),
               ),
