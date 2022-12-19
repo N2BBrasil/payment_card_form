@@ -8,11 +8,11 @@ part of 'payment_card_model.dart';
 
 _$_PaymentCard _$$_PaymentCardFromJson(Map<String, dynamic> json) =>
     _$_PaymentCard(
-      cardNumber: json['card_number'] as String,
+      cardNumber: _removeWhiteSpaces(json['card_number'] as String),
       holderName: json['holder_name'] as String,
-      documentNumber: json['document_number'] as String,
+      documentNumber: _cleanMask(json['document_number'] as String),
       expDate: DatetimeConverter.fromShortString(json['exp_date'] as String),
-      cvv: json['cvv'] as int,
+      cvv: json['cvv'] as String,
     );
 
 Map<String, dynamic> _$$_PaymentCardToJson(_$_PaymentCard instance) =>

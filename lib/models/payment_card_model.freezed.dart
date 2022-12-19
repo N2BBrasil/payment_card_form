@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'payment_card_model.dart';
 
@@ -20,12 +20,14 @@ PaymentCard _$PaymentCardFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PaymentCard {
+  @JsonKey(fromJson: _removeWhiteSpaces)
   String get cardNumber => throw _privateConstructorUsedError;
   String get holderName => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _cleanMask)
   String get documentNumber => throw _privateConstructorUsedError;
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   DateTime get expDate => throw _privateConstructorUsedError;
-  int get cvv => throw _privateConstructorUsedError;
+  String get cvv => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,53 +39,57 @@ mixin _$PaymentCard {
 abstract class $PaymentCardCopyWith<$Res> {
   factory $PaymentCardCopyWith(
           PaymentCard value, $Res Function(PaymentCard) then) =
-      _$PaymentCardCopyWithImpl<$Res>;
+      _$PaymentCardCopyWithImpl<$Res, PaymentCard>;
+  @useResult
   $Res call(
-      {String cardNumber,
+      {@JsonKey(fromJson: _removeWhiteSpaces) String cardNumber,
       String holderName,
-      String documentNumber,
+      @JsonKey(fromJson: _cleanMask) String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString) DateTime expDate,
-      int cvv});
+      String cvv});
 }
 
 /// @nodoc
-class _$PaymentCardCopyWithImpl<$Res> implements $PaymentCardCopyWith<$Res> {
+class _$PaymentCardCopyWithImpl<$Res, $Val extends PaymentCard>
+    implements $PaymentCardCopyWith<$Res> {
   _$PaymentCardCopyWithImpl(this._value, this._then);
 
-  final PaymentCard _value;
   // ignore: unused_field
-  final $Res Function(PaymentCard) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cardNumber = freezed,
-    Object? holderName = freezed,
-    Object? documentNumber = freezed,
-    Object? expDate = freezed,
-    Object? cvv = freezed,
+    Object? cardNumber = null,
+    Object? holderName = null,
+    Object? documentNumber = null,
+    Object? expDate = null,
+    Object? cvv = null,
   }) {
     return _then(_value.copyWith(
-      cardNumber: cardNumber == freezed
+      cardNumber: null == cardNumber
           ? _value.cardNumber
           : cardNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      holderName: holderName == freezed
+      holderName: null == holderName
           ? _value.holderName
           : holderName // ignore: cast_nullable_to_non_nullable
               as String,
-      documentNumber: documentNumber == freezed
+      documentNumber: null == documentNumber
           ? _value.documentNumber
           : documentNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      expDate: expDate == freezed
+      expDate: null == expDate
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      cvv: cvv == freezed
+      cvv: null == cvv
           ? _value.cvv
           : cvv // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
+              as String,
+    ) as $Val);
   }
 }
 
@@ -94,53 +100,53 @@ abstract class _$$_PaymentCardCopyWith<$Res>
           _$_PaymentCard value, $Res Function(_$_PaymentCard) then) =
       __$$_PaymentCardCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
-      {String cardNumber,
+      {@JsonKey(fromJson: _removeWhiteSpaces) String cardNumber,
       String holderName,
-      String documentNumber,
+      @JsonKey(fromJson: _cleanMask) String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString) DateTime expDate,
-      int cvv});
+      String cvv});
 }
 
 /// @nodoc
-class __$$_PaymentCardCopyWithImpl<$Res> extends _$PaymentCardCopyWithImpl<$Res>
+class __$$_PaymentCardCopyWithImpl<$Res>
+    extends _$PaymentCardCopyWithImpl<$Res, _$_PaymentCard>
     implements _$$_PaymentCardCopyWith<$Res> {
   __$$_PaymentCardCopyWithImpl(
       _$_PaymentCard _value, $Res Function(_$_PaymentCard) _then)
-      : super(_value, (v) => _then(v as _$_PaymentCard));
+      : super(_value, _then);
 
-  @override
-  _$_PaymentCard get _value => super._value as _$_PaymentCard;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cardNumber = freezed,
-    Object? holderName = freezed,
-    Object? documentNumber = freezed,
-    Object? expDate = freezed,
-    Object? cvv = freezed,
+    Object? cardNumber = null,
+    Object? holderName = null,
+    Object? documentNumber = null,
+    Object? expDate = null,
+    Object? cvv = null,
   }) {
     return _then(_$_PaymentCard(
-      cardNumber: cardNumber == freezed
+      cardNumber: null == cardNumber
           ? _value.cardNumber
           : cardNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      holderName: holderName == freezed
+      holderName: null == holderName
           ? _value.holderName
           : holderName // ignore: cast_nullable_to_non_nullable
               as String,
-      documentNumber: documentNumber == freezed
+      documentNumber: null == documentNumber
           ? _value.documentNumber
           : documentNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      expDate: expDate == freezed
+      expDate: null == expDate
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      cvv: cvv == freezed
+      cvv: null == cvv
           ? _value.cvv
           : cvv // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
     ));
   }
 }
@@ -150,9 +156,11 @@ class __$$_PaymentCardCopyWithImpl<$Res> extends _$PaymentCardCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$_PaymentCard implements _PaymentCard {
   const _$_PaymentCard(
-      {required this.cardNumber,
+      {@JsonKey(fromJson: _removeWhiteSpaces)
+          required this.cardNumber,
       required this.holderName,
-      required this.documentNumber,
+      @JsonKey(fromJson: _cleanMask)
+          required this.documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString)
           required this.expDate,
       required this.cvv});
@@ -161,16 +169,18 @@ class _$_PaymentCard implements _PaymentCard {
       _$$_PaymentCardFromJson(json);
 
   @override
+  @JsonKey(fromJson: _removeWhiteSpaces)
   final String cardNumber;
   @override
   final String holderName;
   @override
+  @JsonKey(fromJson: _cleanMask)
   final String documentNumber;
   @override
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   final DateTime expDate;
   @override
-  final int cvv;
+  final String cvv;
 
   @override
   String toString() {
@@ -182,60 +192,62 @@ class _$_PaymentCard implements _PaymentCard {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PaymentCard &&
-            const DeepCollectionEquality()
-                .equals(other.cardNumber, cardNumber) &&
-            const DeepCollectionEquality()
-                .equals(other.holderName, holderName) &&
-            const DeepCollectionEquality()
-                .equals(other.documentNumber, documentNumber) &&
-            const DeepCollectionEquality().equals(other.expDate, expDate) &&
-            const DeepCollectionEquality().equals(other.cvv, cvv));
+            (identical(other.cardNumber, cardNumber) ||
+                other.cardNumber == cardNumber) &&
+            (identical(other.holderName, holderName) ||
+                other.holderName == holderName) &&
+            (identical(other.documentNumber, documentNumber) ||
+                other.documentNumber == documentNumber) &&
+            (identical(other.expDate, expDate) || other.expDate == expDate) &&
+            (identical(other.cvv, cvv) || other.cvv == cvv));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(cardNumber),
-      const DeepCollectionEquality().hash(holderName),
-      const DeepCollectionEquality().hash(documentNumber),
-      const DeepCollectionEquality().hash(expDate),
-      const DeepCollectionEquality().hash(cvv));
+      runtimeType, cardNumber, holderName, documentNumber, expDate, cvv);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PaymentCardCopyWith<_$_PaymentCard> get copyWith =>
       __$$_PaymentCardCopyWithImpl<_$_PaymentCard>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_PaymentCardToJson(this);
+    return _$$_PaymentCardToJson(
+      this,
+    );
   }
 }
 
 abstract class _PaymentCard implements PaymentCard {
   const factory _PaymentCard(
-      {required final String cardNumber,
+      {@JsonKey(fromJson: _removeWhiteSpaces)
+          required final String cardNumber,
       required final String holderName,
-      required final String documentNumber,
+      @JsonKey(fromJson: _cleanMask)
+          required final String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString)
           required final DateTime expDate,
-      required final int cvv}) = _$_PaymentCard;
+      required final String cvv}) = _$_PaymentCard;
 
   factory _PaymentCard.fromJson(Map<String, dynamic> json) =
       _$_PaymentCard.fromJson;
 
   @override
+  @JsonKey(fromJson: _removeWhiteSpaces)
   String get cardNumber;
   @override
   String get holderName;
   @override
+  @JsonKey(fromJson: _cleanMask)
   String get documentNumber;
   @override
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   DateTime get expDate;
   @override
-  int get cvv;
+  String get cvv;
   @override
   @JsonKey(ignore: true)
   _$$_PaymentCardCopyWith<_$_PaymentCard> get copyWith =>
