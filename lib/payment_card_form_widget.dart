@@ -20,6 +20,7 @@ class PaymentCardForm extends StatefulWidget {
     this.onChange,
     this.initialValue,
     this.scrollPadding = const EdgeInsets.all(50),
+    this.isTesting = false,
   }) : super(key: key);
 
   static const cardNumberKey = 'card_number';
@@ -32,6 +33,7 @@ class PaymentCardForm extends StatefulWidget {
   final bool autoFocus;
   final PaymentCard? initialValue;
   final EdgeInsets scrollPadding;
+  final bool isTesting;
 
   @override
   PaymentCardFormState createState() => PaymentCardFormState();
@@ -104,29 +106,30 @@ class PaymentCardFormState extends State<PaymentCardForm> {
               ? DateFormat('MM/yy').format(widget.initialValue!.expDate)
               : null,
           validators: [
-            (control) {
-              final value = control.value as String?;
+            if (!widget.isTesting)
+              (control) {
+                final value = control.value as String?;
 
-              if (control.isNull || (value != null && value.isEmpty)) {
-                return {'required': true};
-              }
+                if (control.isNull || (value != null && value.isEmpty)) {
+                  return {'required': true};
+                }
 
-              if (value!.length < 5) return {'minLength': true};
+                if (value!.length < 5) return {'minLength': true};
 
-              final now = DateTime.now();
-              final month = int.parse(value.split('/').first);
-              final expDate = DatetimeConverter.fromShortString(
-                control.value as String,
-              );
-              if (month <= 0 ||
-                  month > 12 ||
-                  (expDate.isBefore(DateTime.now()) &&
-                      !expDate.isSameYM(now))) {
-                return {'invalid': true};
-              }
+                final now = DateTime.now();
+                final month = int.parse(value.split('/').first);
+                final expDate = DatetimeConverter.fromShortString(
+                  control.value as String,
+                );
+                if (month <= 0 ||
+                    month > 12 ||
+                    (expDate.isBefore(DateTime.now()) &&
+                        !expDate.isSameYM(now))) {
+                  return {'invalid': true};
+                }
 
-              return null;
-            },
+                return null;
+              },
           ],
         ),
         PaymentCardForm.cvvKey: FormControl<String>(
