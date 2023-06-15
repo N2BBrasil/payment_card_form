@@ -8,10 +8,7 @@ import 'package:payment_card_form/models/models.dart';
 import 'package:payment_card_form/shared/shared.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-typedef OnPaymentCardFormChange = Function(
-  Map<String, Object?>? formValue,
-  bool isPristine,
-)?;
+typedef OnPaymentCardFormChange = Function(Map<String, Object?>? formValue)?;
 
 class PaymentCardForm extends StatefulWidget {
   const PaymentCardForm({
@@ -61,8 +58,13 @@ class PaymentCardFormState extends State<PaymentCardForm> {
 
   bool isValid() => form.valid;
 
-  bool get isPristineForm =>
-      form.controls.values.every((control) => !control.pristine);
+  bool get isPristineForm {
+    return form.controls.values.every((control) => !control.pristine);
+  }
+
+  bool get isFilledForm {
+    return form.controls.values.every((control) => control.value != null);
+  }
 
   @override
   void initState() {
@@ -151,10 +153,7 @@ class PaymentCardFormState extends State<PaymentCardForm> {
     super.initState();
     if (widget.onChange != null) {
       valueChangesSubscription = form.valueChanges.listen(
-        (value) => widget.onChange!.call(
-          value,
-          isPristineForm,
-        ),
+        (value) => widget.onChange!.call(value),
       );
     }
 
