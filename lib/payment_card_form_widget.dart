@@ -8,6 +8,47 @@ import 'package:payment_card_form/models/models.dart';
 import 'package:payment_card_form/shared/shared.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+class CPFValidator extends Validator<dynamic> {
+  const CPFValidator() : super();
+
+  @override
+  Map<String, dynamic>? validate(AbstractControl<dynamic> control) {
+    if (control.isNull) {
+      return {'required': true};
+    }
+
+    return (CpfUtils.isValid(control.value as String?)) ? null : {'cpf': true};
+  }
+}
+
+class CVVValidator extends Validator<dynamic> {
+  const CVVValidator() : super();
+
+  @override
+  Map<String, dynamic>? validate(AbstractControl<dynamic> control) {
+    final value = control.value as String?;
+
+    if (control.isNull || (value != null && value.isEmpty)) {
+      return {'required': true};
+    }
+
+    if (value!.length < 5) return {'minLength': true};
+
+    final now = DateTime.now();
+    final month = int.parse(value.split('/').first);
+    final expDate = DatetimeConverter.fromShortString(
+      control.value as String,
+    );
+    if (month <= 0 ||
+        month > 12 ||
+        (expDate.isBefore(DateTime.now()) && !expDate.isSameYM(now))) {
+      return {'invalid': true};
+    }
+
+    return null;
+  }
+}
+
 typedef OnPaymentCardFormChange = Function(Map<String, Object?>? formValue)?;
 
 class PaymentCardForm extends StatefulWidget {
@@ -91,48 +132,13 @@ class PaymentCardFormState extends State<PaymentCardForm> {
               ? _documentMaskFormatter
                   .maskText(widget.initialValue!.documentNumber)
               : null,
-          validators: [
-            (control) {
-              if (control.isNull) {
-                return {'required': true};
-              }
-
-              return (CpfUtils.isValid(control.value as String?))
-                  ? null
-                  : {'cpf': true};
-            },
-          ],
+          validators: [CPFValidator()],
         ),
         PaymentCardForm.expDateKey: FormControl<String>(
           value: widget.initialValue?.expDate != null
               ? DateFormat('MM/yy').format(widget.initialValue!.expDate)
               : null,
-          validators: [
-            if (!widget.isTesting)
-              (control) {
-                final value = control.value as String?;
-
-                if (control.isNull || (value != null && value.isEmpty)) {
-                  return {'required': true};
-                }
-
-                if (value!.length < 5) return {'minLength': true};
-
-                final now = DateTime.now();
-                final month = int.parse(value.split('/').first);
-                final expDate = DatetimeConverter.fromShortString(
-                  control.value as String,
-                );
-                if (month <= 0 ||
-                    month > 12 ||
-                    (expDate.isBefore(DateTime.now()) &&
-                        !expDate.isSameYM(now))) {
-                  return {'invalid': true};
-                }
-
-                return null;
-              },
-          ],
+          validators: [if (!widget.isTesting) CVVValidator()],
         ),
         PaymentCardForm.cvvKey: FormControl<String>(
           value: widget.initialValue?.cvv,

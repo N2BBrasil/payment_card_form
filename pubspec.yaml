@@ -16,7 +16,7 @@ dependencies:
   freezed_annotation: ^2.0.3
   json_annotation: ^4.5.0
   mask_text_input_formatter: ^2.3.0
-  reactive_forms: ^14.1.0
+  reactive_forms: ^16.0.3
   url_launcher: ^6.1.4
 
 dev_dependencies:
