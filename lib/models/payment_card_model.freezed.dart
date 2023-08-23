@@ -27,7 +27,7 @@ mixin _$PaymentCard {
   String get documentNumber => throw _privateConstructorUsedError;
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   DateTime get expDate => throw _privateConstructorUsedError;
-  String get cvv => throw _privateConstructorUsedError;
+  String? get cvv => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +46,7 @@ abstract class $PaymentCardCopyWith<$Res> {
       String holderName,
       @JsonKey(fromJson: _cleanMask) String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString) DateTime expDate,
-      String cvv});
+      String? cvv});
 }
 
 /// @nodoc
@@ -66,7 +66,7 @@ class _$PaymentCardCopyWithImpl<$Res, $Val extends PaymentCard>
     Object? holderName = null,
     Object? documentNumber = null,
     Object? expDate = null,
-    Object? cvv = null,
+    Object? cvv = freezed,
   }) {
     return _then(_value.copyWith(
       cardNumber: null == cardNumber
@@ -85,10 +85,10 @@ class _$PaymentCardCopyWithImpl<$Res, $Val extends PaymentCard>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      cvv: null == cvv
+      cvv: freezed == cvv
           ? _value.cvv
           : cvv // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -106,7 +106,7 @@ abstract class _$$_PaymentCardCopyWith<$Res>
       String holderName,
       @JsonKey(fromJson: _cleanMask) String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString) DateTime expDate,
-      String cvv});
+      String? cvv});
 }
 
 /// @nodoc
@@ -124,7 +124,7 @@ class __$$_PaymentCardCopyWithImpl<$Res>
     Object? holderName = null,
     Object? documentNumber = null,
     Object? expDate = null,
-    Object? cvv = null,
+    Object? cvv = freezed,
   }) {
     return _then(_$_PaymentCard(
       cardNumber: null == cardNumber
@@ -143,10 +143,10 @@ class __$$_PaymentCardCopyWithImpl<$Res>
           ? _value.expDate
           : expDate // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      cvv: null == cvv
+      cvv: freezed == cvv
           ? _value.cvv
           : cvv // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -156,14 +156,12 @@ class __$$_PaymentCardCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$_PaymentCard implements _PaymentCard {
   const _$_PaymentCard(
-      {@JsonKey(fromJson: _removeWhiteSpaces)
-          required this.cardNumber,
+      {@JsonKey(fromJson: _removeWhiteSpaces) required this.cardNumber,
       required this.holderName,
-      @JsonKey(fromJson: _cleanMask)
-          required this.documentNumber,
+      @JsonKey(fromJson: _cleanMask) required this.documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString)
-          required this.expDate,
-      required this.cvv});
+      required this.expDate,
+      this.cvv});
 
   factory _$_PaymentCard.fromJson(Map<String, dynamic> json) =>
       _$$_PaymentCardFromJson(json);
@@ -180,7 +178,7 @@ class _$_PaymentCard implements _PaymentCard {
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   final DateTime expDate;
   @override
-  final String cvv;
+  final String? cvv;
 
   @override
   String toString() {
@@ -223,14 +221,12 @@ class _$_PaymentCard implements _PaymentCard {
 
 abstract class _PaymentCard implements PaymentCard {
   const factory _PaymentCard(
-      {@JsonKey(fromJson: _removeWhiteSpaces)
-          required final String cardNumber,
+      {@JsonKey(fromJson: _removeWhiteSpaces) required final String cardNumber,
       required final String holderName,
-      @JsonKey(fromJson: _cleanMask)
-          required final String documentNumber,
+      @JsonKey(fromJson: _cleanMask) required final String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString)
-          required final DateTime expDate,
-      required final String cvv}) = _$_PaymentCard;
+      required final DateTime expDate,
+      final String? cvv}) = _$_PaymentCard;
 
   factory _PaymentCard.fromJson(Map<String, dynamic> json) =
       _$_PaymentCard.fromJson;
@@ -247,7 +243,7 @@ abstract class _PaymentCard implements PaymentCard {
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   DateTime get expDate;
   @override
-  String get cvv;
+  String? get cvv;
   @override
   @JsonKey(ignore: true)
   _$$_PaymentCardCopyWith<_$_PaymentCard> get copyWith =>

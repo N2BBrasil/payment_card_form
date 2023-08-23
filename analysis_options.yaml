@@ -1,4 +1,10 @@
 include: package:flutter_lints/flutter.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  errors:
+    invalid_annotation_target: ignore
+    avoid_final_parameters: ignore
+    depend_on_referenced_packages: ignore
+  exclude:
+    - '**.g.dart'
+    - '**.freezed.dart'

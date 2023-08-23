@@ -12,8 +12,8 @@ class PaymentCard with _$PaymentCard {
     required String holderName,
     @JsonKey(fromJson: _cleanMask) required String documentNumber,
     @JsonKey(fromJson: DatetimeConverter.fromShortString)
-        required DateTime expDate,
-    required String cvv,
+    required DateTime expDate,
+    String? cvv,
   }) = _PaymentCard;
 
   factory PaymentCard.fromJson(Map<String, Object?> json) =>
