@@ -10,17 +10,11 @@ class PaymentCard with _$PaymentCard {
   const factory PaymentCard({
     @JsonKey(fromJson: _removeWhiteSpaces) required String cardNumber,
     required String holderName,
-    @JsonKey(fromJson: _cleanMask) required String documentNumber,
-    @JsonKey(fromJson: DatetimeConverter.fromShortString)
-    required DateTime expDate,
+    @JsonKey(fromJson: DatetimeConverter.fromShortString) required DateTime expDate,
     String? cvv,
   }) = _PaymentCard;
 
-  factory PaymentCard.fromJson(Map<String, Object?> json) =>
-      _$PaymentCardFromJson(json);
+  factory PaymentCard.fromJson(Map<String, Object?> json) => _$PaymentCardFromJson(json);
 }
 
-String _cleanMask(String text) => text.replaceAll(RegExp(r'(\D+)'), '');
-
-String _removeWhiteSpaces(String value) =>
-    value.replaceAll(RegExp(r"\s+\b|\b\s"), "");
+String _removeWhiteSpaces(String value) => value.replaceAll(RegExp(r"\s+\b|\b\s"), "");

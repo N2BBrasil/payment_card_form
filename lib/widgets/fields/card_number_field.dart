@@ -1,4 +1,6 @@
+import 'package:credit_card_type_detector/constants.dart';
 import 'package:credit_card_type_detector/credit_card_type_detector.dart';
+import 'package:credit_card_type_detector/models.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:payment_card_form/payment_card_form.dart';
@@ -45,34 +47,42 @@ class _CreditCardIcon extends StatelessWidget {
 
   final String? number;
 
-  CreditCardType get cardType {
-    return number == null ? CreditCardType.unknown : detectCCType(number!);
+  CreditCardType? get cardType {
+    if (number == null || number!.isEmpty) return null;
+
+    final detectedTypes = detectCCType(number!);
+
+    if (detectedTypes.isEmpty) return null;
+
+    return detectedTypes.first;
   }
+
+  List<String> get _supportedCardFlags => [
+        TYPE_AMEX,
+        TYPE_DINERS_CLUB,
+        TYPE_DISCOVER,
+        TYPE_ELO,
+        TYPE_JCB,
+        TYPE_MAESTRO,
+        TYPE_MASTERCARD,
+        TYPE_HIPERCARD,
+        TYPE_HIPER,
+        TYPE_VISA,
+      ];
 
   @override
   Widget build(BuildContext context) {
-    switch (cardType) {
-      case CreditCardType.amex:
-      case CreditCardType.dinersclub:
-      case CreditCardType.discover:
-      case CreditCardType.elo:
-      case CreditCardType.jcb:
-      case CreditCardType.maestro:
-      case CreditCardType.mastercard:
-      case CreditCardType.hipercard:
-      case CreditCardType.hiper:
-      case CreditCardType.visa:
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Image.asset(
-            'packages/payment_card_form/assets/images/card_icons/${cardType.name}.png',
-            height: 15,
-            width: 22,
-          ),
-        );
-      case CreditCardType.unknown:
-      default:
-        return const Icon(Icons.credit_card);
+    if (_supportedCardFlags.contains(cardType?.type)) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Image.asset(
+          'packages/payment_card_form/assets/images/card_icons/${cardType!.type}.png',
+          height: 15,
+          width: 22,
+        ),
+      );
     }
+
+    return const Icon(Icons.credit_card);
   }
 }

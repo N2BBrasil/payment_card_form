@@ -59,11 +59,6 @@ void main() {
         );
 
         await tester.enterText(
-          find.byType(DocumentNumberField),
-          '37402713024',
-        );
-
-        await tester.enterText(
           find.byType(ExpirationDateField),
           DateFormat('MM/yy').format(
             faker.date.dateTime(

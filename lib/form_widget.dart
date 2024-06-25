@@ -23,7 +23,6 @@ class PaymentCardForm extends StatefulWidget {
 
   static const cardNumberKey = 'card_number';
   static const holderNameKey = 'holder_name';
-  static const documentNumberKey = 'document_number';
   static const expDateKey = 'exp_date';
   static const cvvKey = 'cvv';
 
@@ -43,7 +42,6 @@ class PaymentCardFormState extends State<PaymentCardForm> {
   final _cardNumberMask = MaskTextInputFormatter(
     mask: '#### #### #### #### ###',
   );
-  final _documentMaskFormatter = MaskTextInputFormatter(mask: '###.###.###-##');
   late final FormGroup form;
 
   PaymentCard? validate() {
@@ -87,13 +85,6 @@ class PaymentCardFormState extends State<PaymentCardForm> {
             Validators.minLength(2),
             Validators.maxLength(26),
           ],
-        ),
-        PaymentCardForm.documentNumberKey: FormControl<String>(
-          value: widget.initialValue?.documentNumber != null
-              ? _documentMaskFormatter
-                  .maskText(widget.initialValue!.documentNumber)
-              : null,
-          validators: [const CPFValidator()],
         ),
         PaymentCardForm.expDateKey: FormControl<String>(
           value: widget.initialValue?.expDate != null
@@ -157,10 +148,6 @@ class PaymentCardFormState extends State<PaymentCardForm> {
               scrollPadding: widget.scrollPadding,
             ),
             HolderNameField(scrollPadding: widget.scrollPadding),
-            DocumentNumberField(
-              mask: _documentMaskFormatter,
-              scrollPadding: widget.scrollPadding,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

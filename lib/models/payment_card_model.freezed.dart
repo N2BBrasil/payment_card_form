@@ -23,8 +23,6 @@ mixin _$PaymentCard {
   @JsonKey(fromJson: _removeWhiteSpaces)
   String get cardNumber => throw _privateConstructorUsedError;
   String get holderName => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _cleanMask)
-  String get documentNumber => throw _privateConstructorUsedError;
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   DateTime get expDate => throw _privateConstructorUsedError;
   String? get cvv => throw _privateConstructorUsedError;
@@ -44,7 +42,6 @@ abstract class $PaymentCardCopyWith<$Res> {
   $Res call(
       {@JsonKey(fromJson: _removeWhiteSpaces) String cardNumber,
       String holderName,
-      @JsonKey(fromJson: _cleanMask) String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString) DateTime expDate,
       String? cvv});
 }
@@ -64,7 +61,6 @@ class _$PaymentCardCopyWithImpl<$Res, $Val extends PaymentCard>
   $Res call({
     Object? cardNumber = null,
     Object? holderName = null,
-    Object? documentNumber = null,
     Object? expDate = null,
     Object? cvv = freezed,
   }) {
@@ -76,10 +72,6 @@ class _$PaymentCardCopyWithImpl<$Res, $Val extends PaymentCard>
       holderName: null == holderName
           ? _value.holderName
           : holderName // ignore: cast_nullable_to_non_nullable
-              as String,
-      documentNumber: null == documentNumber
-          ? _value.documentNumber
-          : documentNumber // ignore: cast_nullable_to_non_nullable
               as String,
       expDate: null == expDate
           ? _value.expDate
@@ -104,7 +96,6 @@ abstract class _$$_PaymentCardCopyWith<$Res>
   $Res call(
       {@JsonKey(fromJson: _removeWhiteSpaces) String cardNumber,
       String holderName,
-      @JsonKey(fromJson: _cleanMask) String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString) DateTime expDate,
       String? cvv});
 }
@@ -122,7 +113,6 @@ class __$$_PaymentCardCopyWithImpl<$Res>
   $Res call({
     Object? cardNumber = null,
     Object? holderName = null,
-    Object? documentNumber = null,
     Object? expDate = null,
     Object? cvv = freezed,
   }) {
@@ -134,10 +124,6 @@ class __$$_PaymentCardCopyWithImpl<$Res>
       holderName: null == holderName
           ? _value.holderName
           : holderName // ignore: cast_nullable_to_non_nullable
-              as String,
-      documentNumber: null == documentNumber
-          ? _value.documentNumber
-          : documentNumber // ignore: cast_nullable_to_non_nullable
               as String,
       expDate: null == expDate
           ? _value.expDate
@@ -158,7 +144,6 @@ class _$_PaymentCard implements _PaymentCard {
   const _$_PaymentCard(
       {@JsonKey(fromJson: _removeWhiteSpaces) required this.cardNumber,
       required this.holderName,
-      @JsonKey(fromJson: _cleanMask) required this.documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString)
       required this.expDate,
       this.cvv});
@@ -172,9 +157,6 @@ class _$_PaymentCard implements _PaymentCard {
   @override
   final String holderName;
   @override
-  @JsonKey(fromJson: _cleanMask)
-  final String documentNumber;
-  @override
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   final DateTime expDate;
   @override
@@ -182,7 +164,7 @@ class _$_PaymentCard implements _PaymentCard {
 
   @override
   String toString() {
-    return 'PaymentCard(cardNumber: $cardNumber, holderName: $holderName, documentNumber: $documentNumber, expDate: $expDate, cvv: $cvv)';
+    return 'PaymentCard(cardNumber: $cardNumber, holderName: $holderName, expDate: $expDate, cvv: $cvv)';
   }
 
   @override
@@ -194,16 +176,14 @@ class _$_PaymentCard implements _PaymentCard {
                 other.cardNumber == cardNumber) &&
             (identical(other.holderName, holderName) ||
                 other.holderName == holderName) &&
-            (identical(other.documentNumber, documentNumber) ||
-                other.documentNumber == documentNumber) &&
             (identical(other.expDate, expDate) || other.expDate == expDate) &&
             (identical(other.cvv, cvv) || other.cvv == cvv));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, cardNumber, holderName, documentNumber, expDate, cvv);
+  int get hashCode =>
+      Object.hash(runtimeType, cardNumber, holderName, expDate, cvv);
 
   @JsonKey(ignore: true)
   @override
@@ -223,7 +203,6 @@ abstract class _PaymentCard implements PaymentCard {
   const factory _PaymentCard(
       {@JsonKey(fromJson: _removeWhiteSpaces) required final String cardNumber,
       required final String holderName,
-      @JsonKey(fromJson: _cleanMask) required final String documentNumber,
       @JsonKey(fromJson: DatetimeConverter.fromShortString)
       required final DateTime expDate,
       final String? cvv}) = _$_PaymentCard;
@@ -236,9 +215,6 @@ abstract class _PaymentCard implements PaymentCard {
   String get cardNumber;
   @override
   String get holderName;
-  @override
-  @JsonKey(fromJson: _cleanMask)
-  String get documentNumber;
   @override
   @JsonKey(fromJson: DatetimeConverter.fromShortString)
   DateTime get expDate;
