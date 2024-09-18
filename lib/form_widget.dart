@@ -90,8 +90,7 @@ class PaymentCardFormState extends State<PaymentCardForm> {
         ),
         PaymentCardForm.documentNumberKey: FormControl<String>(
           value: widget.initialValue?.documentNumber != null
-              ? _documentMaskFormatter
-                  .maskText(widget.initialValue!.documentNumber)
+              ? _documentMaskFormatter.maskText(widget.initialValue!.documentNumber)
               : null,
           validators: [const CPFValidator()],
         ),
@@ -161,22 +160,21 @@ class PaymentCardFormState extends State<PaymentCardForm> {
               mask: _documentMaskFormatter,
               scrollPadding: widget.scrollPadding,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: ExpirationDateField(
-                    scrollPadding: widget.scrollPadding,
+            if (widget.allowCVVInsert)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: ExpirationDateField(scrollPadding: widget.scrollPadding),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Flexible(
-                  child: widget.allowCVVInsert
-                      ? CVVField(scrollPadding: widget.scrollPadding)
-                      : const SizedBox.shrink(),
-                ),
-              ],
-            ),
+                  const SizedBox(width: 16),
+                  Flexible(
+                    child: CVVField(scrollPadding: widget.scrollPadding),
+                  ),
+                ],
+              )
+            else
+              ExpirationDateField(scrollPadding: widget.scrollPadding),
           ],
         ),
       ),
