@@ -16,7 +16,7 @@ class CVVField extends StatelessWidget {
     return ReactiveTextField(
       formControlName: PaymentCardForm.cvvKey,
       maxLength: 4,
-      scrollPadding: scrollPadding,
+      scrollPadding: EdgeInsets.only(bottom: scrollPadding.bottom),
       inputFormatters: [
         MaskTextInputFormatter(
           mask: '####',
@@ -50,10 +50,7 @@ class CVVField extends StatelessWidget {
                             children: [
                               Text(
                                 'Código de segurança (CVV, CVC ou CVE)',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(
+                                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
