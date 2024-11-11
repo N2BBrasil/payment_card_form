@@ -58,10 +58,6 @@ void main() {
           faker.person.name(),
         );
 
-        await tester.enterText(
-          find.byType(DocumentNumberField),
-          '37402713024',
-        );
 
         await tester.enterText(
           find.byType(ExpirationDateField),

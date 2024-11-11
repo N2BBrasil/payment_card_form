@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:card_scanner/card_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -19,11 +20,11 @@ class PaymentCardForm extends StatefulWidget {
     this.scrollPadding = const EdgeInsets.all(50),
     this.isTesting = false,
     this.allowCVVInsert = false,
+    this.shouldShowCardFlag = true,
   }) : super(key: key);
 
   static const cardNumberKey = 'card_number';
   static const holderNameKey = 'holder_name';
-  static const documentNumberKey = 'document_number';
   static const expDateKey = 'exp_date';
   static const cvvKey = 'cvv';
 
@@ -33,6 +34,7 @@ class PaymentCardForm extends StatefulWidget {
   final EdgeInsets scrollPadding;
   final bool isTesting;
   final bool allowCVVInsert;
+  final bool shouldShowCardFlag;
 
   @override
   PaymentCardFormState createState() => PaymentCardFormState();
@@ -43,19 +45,25 @@ class PaymentCardFormState extends State<PaymentCardForm> {
   final _cardNumberMask = MaskTextInputFormatter(
     mask: '#### #### #### #### ###',
   );
-  final _documentMaskFormatter = MaskTextInputFormatter(mask: '###.###.###-##');
   late final FormGroup form;
 
   PaymentCard? validate() {
     FocusScope.of(context).unfocus();
 
-    if (form.valid) {
-      return PaymentCard.fromJson(form.value);
-    }
+    if (form.valid) return PaymentCard.fromJson(form.value);
 
     form.markAllAsTouched();
     form.focus(form.errors.keys.first);
     return null;
+  }
+
+  void setCard(CardDetails card) {
+    form.control(PaymentCardForm.cardNumberKey).value =
+        card.cardNumber.isEmpty ? null : _cardNumberMask.maskText(card.cardNumber);
+    form.control(PaymentCardForm.holderNameKey).value =
+        card.cardHolderName.isEmpty ? null : card.cardHolderName;
+    form.control(PaymentCardForm.expDateKey).value =
+        card.expiryDate.isEmpty ? null : card.expiryDate;
   }
 
   bool isValid() => form.valid;
@@ -88,12 +96,6 @@ class PaymentCardFormState extends State<PaymentCardForm> {
             Validators.maxLength(26),
           ],
         ),
-        PaymentCardForm.documentNumberKey: FormControl<String>(
-          value: widget.initialValue?.documentNumber != null
-              ? _documentMaskFormatter.maskText(widget.initialValue!.documentNumber)
-              : null,
-          validators: [const CPFValidator()],
-        ),
         PaymentCardForm.expDateKey: FormControl<String>(
           value: widget.initialValue?.expDate != null
               ? DateFormat('MM/yy').format(widget.initialValue!.expDate)
@@ -112,6 +114,7 @@ class PaymentCardFormState extends State<PaymentCardForm> {
     );
 
     if (widget.initialValue != null) {
+      widget.onChange?.call(form.value);
       for (var element in form.controls.values) {
         element.markAsPristine();
       }
@@ -120,7 +123,9 @@ class PaymentCardFormState extends State<PaymentCardForm> {
     super.initState();
     if (widget.onChange != null) {
       valueChangesSubscription = form.valueChanges.listen(
-        (value) => widget.onChange!.call(value),
+        (value) {
+          widget.onChange!.call(value);
+        },
       );
     }
 
@@ -149,17 +154,14 @@ class PaymentCardFormState extends State<PaymentCardForm> {
       child: DefaultTextStyle(
         style: Theme.of(context).textTheme.bodyMedium!,
         child: Wrap(
-          runSpacing: 24,
+          runSpacing: 16,
           children: [
             CardNumberField(
               mask: _cardNumberMask,
               scrollPadding: widget.scrollPadding,
+              shouldShowCardFlag: widget.shouldShowCardFlag,
             ),
             HolderNameField(scrollPadding: widget.scrollPadding),
-            DocumentNumberField(
-              mask: _documentMaskFormatter,
-              scrollPadding: widget.scrollPadding,
-            ),
             if (widget.allowCVVInsert)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,7 +176,10 @@ class PaymentCardFormState extends State<PaymentCardForm> {
                 ],
               )
             else
-              ExpirationDateField(scrollPadding: widget.scrollPadding),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2,
+                child: ExpirationDateField(scrollPadding: widget.scrollPadding),
+              ),
           ],
         ),
       ),
