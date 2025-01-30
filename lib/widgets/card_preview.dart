@@ -40,15 +40,15 @@ class PaymentCardPreview extends StatelessWidget {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     final Orientation orientation = mediaQueryData.orientation;
     final Size screenSize = mediaQueryData.size;
+    final colorScheme = (isDark ? const ColorScheme.dark() : const ColorScheme.light()).copyWith(
+      primary: Theme.of(context).colorScheme.primary,
+    );
 
     return Theme(
-      data: ThemeData(
-        colorScheme: isDark ? const ColorScheme.dark() : const ColorScheme.light(),
-      ),
+      data: ThemeData(colorScheme: colorScheme),
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          final double screenWidth =
-              constraints.maxWidth.isInfinite ? screenSize.width : constraints.maxWidth;
+          final double screenWidth = constraints.maxWidth.isInfinite ? screenSize.width : constraints.maxWidth;
           final double implicitHeight = orientation.isPortrait
               ? (screenWidth - (padding * 2)) * PaymentCardPreview._kCreditCardAspectRatio
               : screenSize.height / 2;
@@ -79,14 +79,17 @@ class PaymentCardPreview extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 16, right: 16),
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          foregroundColor: isDark ? Colors.white : Colors.black,
+                          foregroundColor: Theme.of(context).colorScheme.onSurface,
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         onPressed: _onScanCard,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.credit_card),
+                            Icon(
+                              Icons.credit_card,
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
                             if (extendedScanButton) ...[
                               const SizedBox(width: 8),
                               const Text('ESCANEAR CARTÃO'),
