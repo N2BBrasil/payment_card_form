@@ -13,7 +13,7 @@ dependencies:
   card_scanner:
     git:
       url: git@github.com:N2BBrasil/card-scanner-flutter.git
-      ref: v1.1.0
+      ref: v1.0.2+1
   freezed: ^2.3.4
   freezed_annotation: any
   intl: any
