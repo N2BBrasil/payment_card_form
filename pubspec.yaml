@@ -1,6 +1,6 @@
 name: payment_card_form
 description: A new Flutter package project.
-version: 2.0.1
+version: 2.0.1+1
 publish_to: none
 
 environment:
