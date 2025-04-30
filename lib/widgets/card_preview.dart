@@ -1,5 +1,3 @@
-import 'package:card_scanner/card_scanner.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:payment_card_form/widgets/widgets.dart';
 
@@ -9,28 +7,17 @@ class PaymentCardPreview extends StatelessWidget {
     this.expiryDate,
     this.holderName,
     this.isTesting = false,
-    this.onCardScanned,
-    bool? allowCardScan,
     double? padding,
     this.isDark = false,
-    this.extendedScanButton = true,
     super.key,
-  })  : padding = padding ?? 16.0,
-        allowCardScan = (allowCardScan ?? false) && !kIsWeb,
-        assert(
-          allowCardScan == false || onCardScanned != null,
-          'onCardScanned is required when allowCardScan is true',
-        );
+  }) : padding = padding ?? 16.0;
 
-  final void Function(CardDetails card)? onCardScanned;
   final double padding;
-  final bool allowCardScan;
   final bool isTesting;
   final String? cardNumber;
   final String? holderName;
   final String? expiryDate;
   final bool isDark;
-  final bool extendedScanButton;
 
   static const double _kCreditCardAspectRatio = 0.628;
   static const String _kSixteenX = '0000 0000 0000 0000';
@@ -72,34 +59,6 @@ class PaymentCardPreview extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                if (allowCardScan)
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 16, right: 16),
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Theme.of(context).colorScheme.onSurface,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        onPressed: _onScanCard,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.credit_card,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                            if (extendedScanButton) ...[
-                              const SizedBox(width: 8),
-                              const Text('ESCANEAR CARTÃO'),
-                            ]
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                const SizedBox(height: 8),
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 16),
@@ -150,18 +109,6 @@ class PaymentCardPreview extends StatelessWidget {
         },
       ),
     );
-  }
-
-  void _onScanCard() async {
-    final cardDetails = await CardScanner.scanCard(
-      scanOptions: CardScanOptions(
-        scanCardHolderName: true,
-        enableLuhnCheck: true,
-        considerPastDatesInExpiryDateScan: isTesting,
-        enableDebugLogs: isTesting,
-      ),
-    );
-    if (cardDetails != null) onCardScanned!.call(cardDetails);
   }
 }
 

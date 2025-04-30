@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:card_scanner/card_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -57,15 +56,6 @@ class PaymentCardFormState extends State<PaymentCardForm> {
     form.markAllAsTouched();
     form.focus(form.errors.keys.first);
     return null;
-  }
-
-  void setCard(CardDetails card) {
-    form.control(PaymentCardForm.cardNumberKey).value =
-        card.cardNumber.isEmpty ? null : _cardNumberMask.maskText(card.cardNumber);
-    form.control(PaymentCardForm.holderNameKey).value =
-        card.cardHolderName.isEmpty ? null : card.cardHolderName;
-    form.control(PaymentCardForm.expDateKey).value =
-        card.expiryDate.isEmpty ? null : card.expiryDate;
   }
 
   bool isValid() => form.valid;

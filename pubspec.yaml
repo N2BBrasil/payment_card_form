@@ -1,6 +1,6 @@
 name: payment_card_form
 description: A new Flutter package project.
-version: 2.0.1+2
+version: 2.0.1+2-no-card-scanner
 publish_to: none
 
 environment:
@@ -10,10 +10,6 @@ dependencies:
   credit_card_type_detector: ^2.0.0
   flutter:
     sdk: flutter
-  card_scanner:
-    git:
-      url: https://github.com/N2BBrasil/card-scanner-flutter
-      ref: v1.0.2+1
   freezed: ^2.3.4
   freezed_annotation: any
   intl: any
